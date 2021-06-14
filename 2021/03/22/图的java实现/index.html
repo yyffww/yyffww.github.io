@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据结构-图(BFS&amp;DFS) | small_杨@裂缝中的一丝阳光</title><meta name="keywords" content="learn"><meta name="author" content="small_杨"><meta name="copyright" content="small_杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="图(BFS&amp;DFS)什么是图图是由顶点的集合和边的集合组成的。 说到图我们通常会想到地图。地图一般会标有城市名称，以及链接各个城市的线路。在数据结构中我们称这些城市为顶点（Vertxe,也被叫做结点），而连接这些城市的线路我们称为边（Edge）。也就是说明由顶点和边组成的图形就称为图。 分类无向图：     有向图：   权：在实际应用中图的边往往需要表示成为某种数值，这个数值便是该边的权">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-图(BFS&amp;DFS)">
+<meta property="og:url" content="https://workspaceyh.gitee.io/yfblog/2021/03/22/%E5%9B%BE%E7%9A%84java%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="small_杨@裂缝中的一丝阳光">
+<meta property="og:description" content="图(BFS&amp;DFS)什么是图图是由顶点的集合和边的集合组成的。 说到图我们通常会想到地图。地图一般会标有城市名称，以及链接各个城市的线路。在数据结构中我们称这些城市为顶点（Vertxe,也被叫做结点），而连接这些城市的线路我们称为边（Edge）。也就是说明由顶点和边组成的图形就称为图。 分类无向图：     有向图：   权：在实际应用中图的边往往需要表示成为某种数值，这个数值便是该边的权">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/workspaceyh/img/raw/master/map.png">
+<meta property="article:published_time" content="2021-03-22T10:34:35.000Z">
+<meta property="article:modified_time" content="2021-03-24T08:48:27.017Z">
+<meta property="article:author" content="small_杨">
+<meta property="article:tag" content="learn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/workspaceyh/img/raw/master/map.png"><link rel="shortcut icon" href="/yfblog/img/favicon.png"><link rel="canonical" href="https://workspaceyh.gitee.io/yfblog/2021/03/22/%E5%9B%BE%E7%9A%84java%E5%AE%9E%E7%8E%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/yfblog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/yfblog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-24 16:48:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/yfblog/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/yfblog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/yfblog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/yfblog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/yfblog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/yfblog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/workspaceyh/img/raw/master/map.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/yfblog/">small_杨@裂缝中的一丝阳光</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/yfblog/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/yfblog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/yfblog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/yfblog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/yfblog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/yfblog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据结构-图(BFS&amp;DFS)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-22T10:34:35.000Z" title="发表于 2021-03-22 18:34:35">2021-03-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-24T08:48:27.017Z" title="更新于 2021-03-24 16:48:27">2021-03-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/yfblog/categories/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/yfblog/categories/Java/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h4 id="图-BFS-amp-DFS"><a href="#图-BFS-amp-DFS" class="headerlink" title="图(BFS&amp;DFS)"></a>图(BFS&amp;DFS)</h4><h5 id="什么是图"><a href="#什么是图" class="headerlink" title="什么是图"></a>什么是图</h5><p>图是由顶点的集合和边的集合组成的。</p>
+<p>说到图我们通常会想到地图。地图一般会标有城市名称，以及链接各个城市的线路。在数据结构中我们称这些城市为顶点（Vertxe,也被叫做结点），而连接这些城市的线路我们称为边（Edge）。也就是说明由顶点和边组成的图形就称为图。</p>
+<h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><p>无向图：</p>
+<img src="/yfblog/2021/03/22/%E5%9B%BE%E7%9A%84java%E5%AE%9E%E7%8E%B0/image-20210322202117617.png" class="" title="image-20210322202117617">
+
+
+
+<p>有向图：</p>
+<img src="/yfblog/2021/03/22/%E5%9B%BE%E7%9A%84java%E5%AE%9E%E7%8E%B0/image-20210322202650316.png" class="" title="image-20210322202650316">
+
+<p>权：在实际应用中图的边往往需要表示成为某种数值，这个数值便是该边的权。无向图带权就是无向带权图，有向图加上权值就是有向带权图。</p>
+<img src="/yfblog/2021/03/22/%E5%9B%BE%E7%9A%84java%E5%AE%9E%E7%8E%B0/image-20210322212139692.png" class="" title="image-20210322212139692">
+
+<h5 id="BFS-与-DFS"><a href="#BFS-与-DFS" class="headerlink" title="BFS 与 DFS"></a>BFS 与 DFS</h5><h6 id="BFS-Breadth-First-Search-广度优先搜索"><a href="#BFS-Breadth-First-Search-广度优先搜索" class="headerlink" title="BFS(Breadth First Search): 广度优先搜索"></a>BFS(Breadth First Search): 广度优先搜索</h6><p>任意选择一个点做根结点，然后找与根结点连接的顶点，如上图我们选择A作为根结点，接下来找到B.C,又根据B或者C来找他的邻接点(这儿以B开始找)，B的邻接点是A,C,D不过A,C已经被找过了，所以只能找到D,C的邻接点是A,B,D,E  由于A,B,D也被找过了，所以也只能找到E。现在找与D相邻的结点(发问？为什么不从E找，要从D找………当然我们是按照顺序找的啦~)，D相邻的没有找过的点只有E。所以我们找出的一种结果为A，B，C，D，E，F。这儿可能解释不怎么清楚。这儿用下面一张图解释。</p>
+<img src="/yfblog/2021/03/22/%E5%9B%BE%E7%9A%84java%E5%AE%9E%E7%8E%B0/image-20210322212525042.png" class="" title="image-20210322212525042">
+
+<p>​    根据底部箭头所指的结点找到上面对应颜色的结点，而下面是依照队列顺序来寻找的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;String, String[]&gt; graph()&#123;</span><br><span class="line">      Map&lt;String, String[]&gt; map=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">      String [] A=&#123;<span class="string">&quot;B&quot;</span>,<span class="string">&quot;C&quot;</span>&#125;;</span><br><span class="line">      String [] B=&#123;<span class="string">&quot;A&quot;</span>,<span class="string">&quot;C&quot;</span>,<span class="string">&quot;D&quot;</span>&#125;;</span><br><span class="line">      String [] C=&#123;<span class="string">&quot;A&quot;</span>,<span class="string">&quot;B&quot;</span>,<span class="string">&quot;D&quot;</span>,<span class="string">&quot;E&quot;</span>&#125;;</span><br><span class="line">      String [] D=&#123;<span class="string">&quot;B&quot;</span>,<span class="string">&quot;C&quot;</span>,<span class="string">&quot;E&quot;</span>,<span class="string">&quot;F&quot;</span>&#125;;</span><br><span class="line">      String [] E=&#123;<span class="string">&quot;C&quot;</span>,<span class="string">&quot;D&quot;</span>&#125;;</span><br><span class="line">      String [] F=&#123;<span class="string">&quot;D&quot;</span>&#125;;</span><br><span class="line">      map.put(<span class="string">&quot;A&quot;</span>,A);</span><br><span class="line">      map.put(<span class="string">&quot;B&quot;</span>,B);</span><br><span class="line">      map.put(<span class="string">&quot;C&quot;</span>,C);</span><br><span class="line">      map.put(<span class="string">&quot;D&quot;</span>,D);</span><br><span class="line">      map.put(<span class="string">&quot;E&quot;</span>,E);</span><br><span class="line">      map.put(<span class="string">&quot;F&quot;</span>,F);</span><br><span class="line">      <span class="keyword">return</span> map;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Map&lt;String,String&gt; <span class="title">BFS</span><span class="params">(Map&lt;String, String[]&gt; map,String s)</span></span>&#123;</span><br><span class="line">      Queue&lt;String&gt; queue = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">      queue.offer(s);</span><br><span class="line">      HashSet&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">      set.add(s);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">//这个map用来保存查看当前结点的父子结点</span></span><br><span class="line">      Map&lt;String,String&gt; parent=<span class="keyword">new</span> HashMap&lt;String,String&gt;();</span><br><span class="line">      parent.put(s,<span class="keyword">null</span>);</span><br><span class="line">      <span class="keyword">while</span> (queue.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">          String vertex=queue.poll();</span><br><span class="line">          String[] nodes = map.get(vertex);</span><br><span class="line">          <span class="keyword">for</span> (String w:nodes)&#123;</span><br><span class="line">              <span class="keyword">if</span>(!set.contains(w))&#123;</span><br><span class="line">                  queue.offer(w);</span><br><span class="line">                  set.add(w);</span><br><span class="line">                  parent.put(w,vertex);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          System.out.println(vertex);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> parent;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="DFS-Deep-First-Search-深度优先搜索"><a href="#DFS-Deep-First-Search-深度优先搜索" class="headerlink" title="DFS(Deep First Search): 深度优先搜索"></a>DFS(Deep First Search): 深度优先搜索</h6><p>我的理解是 ：一个人走一条路走到黑，原路返回到上一个路口，如果这个路口有其他路，又顺着这条路走到尽头，但是除了原路返回不会到其他已经到过的地方。直到回到最初的起点。</p>
+<p>还是拿上面图举个栗子，从A出发，顺着一条路走，我这还是走B,然后D,F。当走到F没有路时，此时原路返回到D,此时发现有两条路可走，随便走一条走到尽头。我这从E走，然后到C。现在发现A,B,D都已经到过，原路返回到E,没路，又原路返回到D,以此类推。最终回到A。</p>
+<p>所以走过的路径依次为A，B，D，F，E，C。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DFS</span><span class="params">(Map&lt;String, String[]&gt; map,String s)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    Stack&lt;String&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    stack.push(s);</span><br><span class="line">    HashSet&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    set.add(s);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (stack.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        String vertex=stack.pop();</span><br><span class="line">        String[] nodes = map.get(vertex);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//List&lt;String&gt; asList = Arrays.asList(nodes);</span></span><br><span class="line">        <span class="comment">//Collections.shuffle(asList);</span></span><br><span class="line">        <span class="keyword">for</span> (String w:nodes)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!set.contains(w))&#123;</span><br><span class="line">                stack.push(w);</span><br><span class="line">                set.add(w);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(vertex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上代码输出均只有一种结果，因为默认遍历的是按照数组顺序。两者之间唯一的区别就是一个先进先出，一个先进后出，也就是队列与栈的区别。</p>
+<p>文章到此结束~</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">small_杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://workspaceyh.gitee.io/yfblog/2021/03/22/%E5%9B%BE%E7%9A%84java%E5%AE%9E%E7%8E%B0/">https://workspaceyh.gitee.io/yfblog/2021/03/22/%E5%9B%BE%E7%9A%84java%E5%AE%9E%E7%8E%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://workspaceyh.gitee.io/yfblog" target="_blank">small_杨@裂缝中的一丝阳光</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/yfblog/tags/learn/">learn</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/workspaceyh/img/raw/master/map.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/yfblog/2021/03/24/java%E4%B8%AD%E7%9A%84%E9%AB%98%E7%BA%A7%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/"><img class="prev-cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="onerror=null;src='/yfblog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">java中的高级字符串处理</div></div></a></div><div class="next-post pull-right"><a href="/yfblog/2021/03/21/java%E5%9B%BD%E9%99%85%E5%8C%96%E7%BC%96%E7%A8%8B/"><img class="next-cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="onerror=null;src='/yfblog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">java国际化编程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/yfblog/2021/04/24/Eclipse-Maven/" title="Eclipse Maven"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/eclipse.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-24</div><div class="title">Eclipse Maven</div></div></a></div><div><a href="/yfblog/2021/05/27/Java-数据库编程/" title="Java 数据库编程"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-27</div><div class="title">Java 数据库编程</div></div></a></div><div><a href="/yfblog/2021/06/11/Java字节码/" title="Java字节码"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-11</div><div class="title">Java字节码</div></div></a></div><div><a href="/yfblog/2021/04/29/Java并发数据结构-线程协作/" title="Java并发数据结构&并发协作"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-29</div><div class="title">Java并发数据结构&并发协作</div></div></a></div><div><a href="/yfblog/2021/04/29/Java并发框架/" title="Java并发框架"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-29</div><div class="title">Java并发框架</div></div></a></div><div><a href="/yfblog/2021/05/06/Java网络编程/" title="Java网络编程"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-06</div><div class="title">Java网络编程</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="this.onerror=null;this.src='/yfblog/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">small_杨</div><div class="author-info__description">小杨的个人博客</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/yfblog/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/yfblog/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item is-center"><a href="/yfblog/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://gitee.com/workspaceyh"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BE-BFS-amp-DFS"><span class="toc-number">1.</span> <span class="toc-text">图(BFS&amp;DFS)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%BE"><span class="toc-number">1.1.</span> <span class="toc-text">什么是图</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#BFS-%E4%B8%8E-DFS"><span class="toc-number">1.3.</span> <span class="toc-text">BFS 与 DFS</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#BFS-Breadth-First-Search-%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="toc-number">1.3.1.</span> <span class="toc-text">BFS(Breadth First Search): 广度优先搜索</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#DFS-Deep-First-Search-%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="toc-number">1.3.2.</span> <span class="toc-text">DFS(Deep First Search): 深度优先搜索</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java字节码"/></a><div class="content"><a class="title" href="/yfblog/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码">Java字节码</a><time datetime="2021-06-11T07:50:59.000Z" title="发表于 2021-06-11 15:50:59">2021-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java 数据库编程"/></a><div class="content"><a class="title" href="/yfblog/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程">Java 数据库编程</a><time datetime="2021-05-27T03:02:44.000Z" title="发表于 2021-05-27 11:02:44">2021-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java网络编程"/></a><div class="content"><a class="title" href="/yfblog/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程">Java网络编程</a><time datetime="2021-05-06T13:47:57.000Z" title="发表于 2021-05-06 21:47:57">2021-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java并发数据结构&amp;并发协作"/></a><div class="content"><a class="title" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作">Java并发数据结构&amp;并发协作</a><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" title="Java并发框架"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java并发框架"/></a><div class="content"><a class="title" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" title="Java并发框架">Java并发框架</a><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By small_杨</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/yfblog/js/utils.js"></script><script src="/yfblog/js/main.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'u6ESlOAp2phpNTjWfQglLhbG-gzGzoHsz',
+      appKey: '4CPlz9dnvXUTKV69BxoBxMDz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/yfblog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/yfblog/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"rect":"opacity:0.5","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

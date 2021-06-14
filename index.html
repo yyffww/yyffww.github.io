@@ -1,0 +1,506 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>small_杨@裂缝中的一丝阳光 - small_杨@@裂缝中的一丝阳光</title><meta name="keywords" content="java"><meta name="author" content="small_杨"><meta name="copyright" content="small_杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="小杨的个人博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="small_杨@裂缝中的一丝阳光">
+<meta property="og:url" content="https://workspaceyh.gitee.io/yfblog/index.html">
+<meta property="og:site_name" content="small_杨@裂缝中的一丝阳光">
+<meta property="og:description" content="小杨的个人博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png">
+<meta property="article:author" content="small_杨">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png"><link rel="shortcut icon" href="/yfblog/img/favicon.png"><link rel="canonical" href="https://workspaceyh.gitee.io/yfblog/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/yfblog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/yfblog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-06-15 00:20:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/yfblog/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/yfblog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/yfblog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/yfblog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/yfblog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/yfblog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/yfblog/img/favicon.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/yfblog/">small_杨@裂缝中的一丝阳光</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/yfblog/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/yfblog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/yfblog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/yfblog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/yfblog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/yfblog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">small_杨@裂缝中的一丝阳光</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/yfblog/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码">     <img class="post_bg" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java字节码"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码">Java字节码</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-06-11T07:50:59.000Z" title="发表于 2021-06-11 15:50:59">2021-06-11</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a></span></div><div class="content">1.class文件的构成采用类似于C语言结构体的结构来表示数据。
+包括两种数据类型
+
+定长数据：无符号数，u1,u2,u4(分别代表一个字节，两个字节，4个字节的无符号数)。
+不定长数据：由多个无符号数组成，通常在数据的前面给出其长度。
+
+
+
+
+
+
+
+
+前四个字节为魔数，第5.6字节表示次版本号，7.8字节表示主版本号。37对应的十进制数为55。所以对应jdk11。版本号，对应表，如下
+
+
+
+
+Jdk提供了javap来对class文件进行反编译。
+
+ javap -verbose class文件名
+
+
+常量池主要存放两大类常量
+
+字面量（直接赋值的字符串）
+
+如文本字符串，final的常量值。
+
+符号引用
+
+类和接口的全限定名。
+字段和名称的描述符。
+方法发名称和描述符。
+
+
+
+访问标志：常量池结束之后的两个字节，描述该Class是类还是接口，以及是否被public，abstract。final等修饰。
+
+类索引：访问标志结束后的两个字节，描述的是当前类的全限定名。这两个字节保存的值为常量池中的索引值，根据索引值就能在常量池中找到这个类的全限定名。
+
+父类索引：当前类名后的两个字节。保 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/yfblog/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程">     <img class="post_bg" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java 数据库编程"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程">Java 数据库编程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-05-27T03:02:44.000Z" title="发表于 2021-05-27 11:02:44">2021-05-27</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a></span></div><div class="content">一.简介最近返璞归真,在慕课大学上学习下java进阶知识,记录一下一面遗忘基础知识.
+二.三个重要处理1.事务处理
+作为单个逻辑工作单元执行的一系列操作,要么完全执行,要么完全不执行。
+
+事务，必须满足ACID(原子性，一致性，隔离性，持久性)属性。
+
+事务是数据库运行中的逻辑工作单位，由DBMS中的事务管理子系统负责事务的处理。
+
+JDBC事务
+
+关闭自动提交，实现多语句同一事务
+connection.setAutoCommit(flase);
+connection.commit(); 提交事务
+connection.rollback() 回滚事务
+保存点机制
+
+connection.setSavepoint()
+connection.rollback(Savepoint)
+
+
+
+
+2.PreparedStatement
+拼接字符串很危险
+
+Java提供PreparedStatement,更为安全执行SQL
+
+和Statement区别是使用“？”代替字符串拼接
+
+使用setXXX(int,Object)的函数替换？
+
+不需要考虑字符串两侧的单引号
+参数赋值，拒接拼接错误
+
+
+提供ad ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/yfblog/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程">     <img class="post_bg" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java网络编程"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程">Java网络编程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-05-06T13:47:57.000Z" title="发表于 2021-05-06 21:47:57">2021-05-06</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a></span></div><div class="content">简介
+TCP: Transmission Control Protocol
+
+传输控制协议,面向连接的协议
+两台机器的可靠无差错的数据传输
+双向字节流传递
+
+
+UDP: User Datagram Protocol
+
+用户数据报协议,面向无连接协议
+不保证可靠的数据传输
+速度快,也可以在较差的网络下使用
+
+
+HTTP:
+
+超文本传输协议
+URI：Uniform Resource Identifier，统一资源标志符，可以通过它来定位任何远程或本地的可用资源；URL是URI元素的成分，URI包括URL和URN两部分
+URI:统一资源标识符
+URL:统一资源定位符
+
+
+
+一,同步IO1.阻塞IO1).UDP
+UDP:无连接无状态的通讯协议
+
+发送方发送消息,如果接收方刚好在目的地.则可以接受。如果不在，那这个消息就丢失。
+发送方无法知道是否发送成功
+节省，简单，经济
+
+
+DatagramSocket: 通讯的数据管道
+
+send 和receive放法
+（可选，多网卡）绑定一个ip和port
+
+
+DatagramPacket
+
+集装箱：封装数据
+地址标签：目的地IP + Port
+
+
+
+无主 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作">     <img class="post_bg" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java并发数据结构&amp;并发协作"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作">Java并发数据结构&amp;并发协作</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a></span></div><div class="content">1.简介
+我们常用的数据结构在并发编程中是不安全的。如ArrayList,HashMap.HashSet。
+
+Vector,Hashtable同步集合性能过差。
+
+并发数据结构：数据添加和删除
+
+阻塞式集合：当集合为空或者满的时候，等待
+非阻塞式集合：当集合为空或者满的时候，不等待，返回null或者异常。
+
+
+
+2.并发数据结构1.List
+Vector 同步安全，写多读少
+ArrayList  不安全
+Collections.synchronizedList(List list)  基于synchronized,效率差。
+CopyOnWriteArrayList  读多写少，基于复制机制，非阻塞。
+
+2.Set
+HashSet 不安全
+Collections.synchronizedSet(Set set)  基于synchronized,效率差。
+CopyOnWriteArraySet  读多写少，基于CopyOnWriteArrayList实现，非阻塞。
+
+3.Map
+Hashtable  同步安全，写多读少
+HashMap  不安全
+Collections.synchroniz ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" title="Java并发框架">     <img class="post_bg" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java并发框架"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" title="Java并发框架">Java并发框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a></span></div><div class="content">1.简介1.为什么需要并发框架?肯定是因为数据多,数据量大。
+2.串行编程与并行编程。
+串行编程简单，拥有顺序结构，选择结构，循环结构。
+
+并行编程困难，主要是任务分配和执行过程高度耦合。
+
+–如何控制粒度，切割任务。
+–如何分配任务给线程，监督线程执行过程。
+
+
+
+3.并行模式
+1.主从模式(Master-Slave)
+2.Worker模式(Worker-Worker)  也叫P2P
+
+4.Java并发编程
+Thread/Runnable/Thread组管理
+Executor
+Fork-Join框架
+
+2.线程组管理线程组ThreadGroup
+树形结构
+通过enumerate遍历组内线程
+能够有效管理多个线程，但是管理效率低
+任务分配和执行过程高度耦合
+重复创建线程，关闭线程操作，无法重用线程。
+
+
+
+
+
+方法
+意义
+
+
+
+1
+ThreadGroup.activeCount()
+返回线程组中还处于active的线程数
+
+
+2
+ThreadGroup.enumerate()
+将线程组中active的线程拷贝到数组中
+
+
+3
+ThreadGroup.interrupt()
+对线程组中所 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/yfblog/2021/04/29/java%E7%9A%84%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/" title="Java相关笔记">     <img class="post_bg" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java相关笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/04/29/java%E7%9A%84%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/" title="Java相关笔记">Java相关笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a></span></div><div class="content">1.反射
+程序可以访问,检测和修改它本身状态或者行为的能力,即自描述和自控制。
+
+可以在运行时加载，探知和使用编译期间完全未知的类。
+
+在运行中分析类的能力
+
+在运行中查看和操作对象
+
+反射构建出无法直接访问的类
+set或者get到无法访问的成员变量
+调用不可访问的方法
+
+
+实现通用的数组操作代码
+
+类似函数指针的功能
+
+
+2.注解
+
+@SuppressWarning  压制警告
+@Override    重写方法标记
+@Deprecated  标注为废除，建议程序员不再使用这个类、包、元。
+
+
+用来修饰程序的元素,但不会对被修饰的对象有直接影响。
+
+用途
+
+提供信息给编译器。
+可用于其他工具来产生额外的代码、配置文件。
+有些注解可在程序运行时访问，增加程序的动态性。
+
+
+Jdk预定义的元注解
+
+@Target               设置目标的范围      
+
+ElementType.ANNOTATION_TYPE         修饰注解
+ElementType.CONSTRUCTOR       修饰构造函数
+ElementType.FIELD                ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/yfblog/2021/04/24/Eclipse-Maven/" title="Eclipse Maven">     <img class="post_bg" src="https://gitee.com/workspaceyh/img/raw/master/eclipse.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Eclipse Maven"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/04/24/Eclipse-Maven/" title="Eclipse Maven">Eclipse Maven</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-24T13:47:57.000Z" title="发表于 2021-04-24 21:47:57">2021-04-24</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/IDE/">IDE</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/yfblog/categories/IDE/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/yfblog/tags/maven/">maven</a></span></div><div class="content">1.简介最近在eclipse搭建开发环境，之前使用的IDEA。Maven肯定是管理jar包必不可少的工具。
+这儿简单的记录一下在eclipse使用与maven的一些相关知识。
+2.maven的安装(进入官网下载)[http://maven.apache.org/download.cgi] 下载好你想要版本的包。然后解压~，像jdk一样配置环境变量。
+
+
+然后Path中添加bin路径。
+
+
+进入maven解压目录conf中找到settings.xml设置如下
+1234567891011121314151617181920212223&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;          xsi:schemaLocati ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/yfblog/2021/04/24/java%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/" title="java生成条形码与二维码">     <img class="post_bg" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="java生成条形码与二维码"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/04/24/java%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/" title="java生成条形码与二维码">java生成条形码与二维码</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-24T05:53:33.000Z" title="发表于 2021-04-24 13:53:33">2021-04-24</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/Java/">Java</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/yfblog/tags/%E4%BA%8C%E7%BB%B4%E7%A0%81/">二维码</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/yfblog/tags/%E6%9D%A1%E5%BD%A2%E7%A0%81/">条形码</a></span></div><div class="content">1.简介一维码通常由黑白条组成，在书籍的背面，商品的背面见的很多。通常代表一串数字、字母。
+用某种特定的几何图形按照一定规律在平面(二维方向上)分布的黑白相间的图形记录数据符号信息。能够存储数字、字母、汉字、图片。字符集128个字符，抗损坏。
+我们把自己做好的jar包打包在自己的maven仓库，以后使用直接调用他的，就免去了我们以后在解决类似繁琐的问题。建立自己风格的代码仓库。
+图形图像学比较困难~所以我们这就用两个第三方包来处理。
+
+ Zxing（Zebra Crossing)
+Barcode4J (2012断更~ ，它只负责生成，不负责解析)
+
+因为第二种不能解析，所以现在通常使用的Google提供的Zxing.
+2.使用场景电商使用较多~
+3.代码一、Zxing在pom.xml引入包
+123456789101112&lt;!-- https://mvnrepository.com/artifact/com.google.zxing/core --&gt;&lt;dependency&gt;    &lt;groupId&gt;com.google.zxing&lt;/groupI ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/yfblog/2021/04/22/%E5%AE%9A%E8%AF%AD%E4%BB%8E%E5%8F%A5/" title="定语从句">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="定语从句"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/04/22/%E5%AE%9A%E8%AF%AD%E4%BB%8E%E5%8F%A5/" title="定语从句">定语从句</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-22T15:09:45.000Z" title="发表于 2021-04-22 23:09:45">2021-04-22</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/%E8%8B%B1%E8%AF%AD/">英语</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/yfblog/categories/%E8%8B%B1%E8%AF%AD/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">基础语法</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a></span></div><div class="content">定语从句定语从句在句子中起形容词的作用,修饰形容词。引导定语从句的一般是关系代词，位于先行词后，起连接两个句子和代词的作用。
+关系代词关系副词引导修饰先行词的定语从句，起连词和代词的作用。
+1.who/whose/whom(人)代词有主格，所有格，宾格，所以关系代词也有主格，所有格，宾格。
+
+
+
+
+主格
+所有格
+宾格
+
+
+
+第一人称
+I/we
+my/our
+me/us
+
+
+第二人称
+you
+your
+you
+
+
+第三人称
+he/she/they
+his/her/their
+him/her/them
+
+
+关系代词
+who
+whose
+whom/who
+
+
+🙋‍三个例子：
+主格用who，所有格用whose，宾格用whom./who
+
+I have a friend. He lives in  Japan.
+主格：I have a friend who  lives in Japan.
+I have a friend. Her name is Hu.
+所有格：I have a friend whose name is Hu.
+I have a friend. I often play wi ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/yfblog/2021/04/10/%E7%8A%B6%E8%AF%AD%E4%BB%8E%E5%8F%A5/" title="状语从句">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="状语从句"></a></div><div class="recent-post-info"><a class="article-title" href="/yfblog/2021/04/10/%E7%8A%B6%E8%AF%AD%E4%BB%8E%E5%8F%A5/" title="状语从句">状语从句</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-09T17:00:45.000Z" title="发表于 2021-04-10 01:00:45">2021-04-10</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/yfblog/categories/%E8%8B%B1%E8%AF%AD/">英语</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/yfblog/categories/%E8%8B%B1%E8%AF%AD/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">基础语法</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/yfblog/tags/learn/">learn</a></span></div><div class="content">一.状语从句1.形容词
+放在系动词后作表语
+放在名词前作定语
+
+2.副词
+修饰实义动词（he cried sadly）
+修饰形容词（he looks especially sad）
+修饰副词 (he cried rather sadly)
+修饰句子(actually,he cried)
+
+副词无论放在哪里，都是状语
+状语：状语就是在一个句子中，用来修饰实义动词，形容词，副词或整个句子的成分（除了名词不能修饰，什么都能修饰）。
+3.状语的成分
+adv(副词)
+介词短语
+非谓语动词
+从句作状语。
+
+状语的位置：随便放。
+
+二.状语从句的分类1.时间状语从句1).引导词
+when = while = as(当…..时候)（while很少翻译成这个意思，当翻译成这个意思时，后面跟进行时态）
+
+before
+
+after
+
+since(自从)(eg. I have fallen in love with you,since I met you.)
+
+the moment = as soon as(一….就….)
+
+by the time(到….为止…)
+
+until,not…..until(直到 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/yfblog/page/2/">2</a><a class="extend next" rel="next" href="/yfblog/page/2/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="this.onerror=null;this.src='/yfblog/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">small_杨</div><div class="author-info__description">小杨的个人博客</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/yfblog/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/yfblog/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item is-center"><a href="/yfblog/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://gitee.com/workspaceyh"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java字节码"/></a><div class="content"><a class="title" href="/yfblog/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码">Java字节码</a><time datetime="2021-06-11T07:50:59.000Z" title="发表于 2021-06-11 15:50:59">2021-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java 数据库编程"/></a><div class="content"><a class="title" href="/yfblog/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程">Java 数据库编程</a><time datetime="2021-05-27T03:02:44.000Z" title="发表于 2021-05-27 11:02:44">2021-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java网络编程"/></a><div class="content"><a class="title" href="/yfblog/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程">Java网络编程</a><time datetime="2021-05-06T13:47:57.000Z" title="发表于 2021-05-06 21:47:57">2021-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java并发数据结构&amp;并发协作"/></a><div class="content"><a class="title" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作">Java并发数据结构&amp;并发协作</a><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" title="Java并发框架"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java并发框架"/></a><div class="content"><a class="title" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" title="Java并发框架">Java并发框架</a><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/yfblog/categories/IDE/"><span class="card-category-list-name">IDE</span><span class="card-category-list-count">2</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/yfblog/categories/IDE/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/yfblog/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">11</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/yfblog/categories/Java/XML/"><span class="card-category-list-name">XML</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/yfblog/categories/Java/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="card-category-list-name">数据结构</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/yfblog/categories/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/"><span class="card-category-list-name">网站搭建</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/yfblog/categories/%E8%8B%B1%E8%AF%AD/"><span class="card-category-list-name">英语</span><span class="card-category-list-count">2</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/yfblog/categories/%E8%8B%B1%E8%AF%AD/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><span class="card-category-list-name">基础语法</span><span class="card-category-list-count">2</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/yfblog/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/yfblog/tags/learn/" style="font-size: 1.5em; color: #99a9bf">learn</a> <a href="/yfblog/tags/maven/" style="font-size: 1.1em; color: #999">maven</a> <a href="/yfblog/tags/xml/" style="font-size: 1.1em; color: #999">xml</a> <a href="/yfblog/tags/%E4%BA%8C%E7%BB%B4%E7%A0%81/" style="font-size: 1.1em; color: #999">二维码</a> <a href="/yfblog/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 1.1em; color: #999">工具</a> <a href="/yfblog/tags/%E6%9D%A1%E5%BD%A2%E7%A0%81/" style="font-size: 1.1em; color: #999">条形码</a> <a href="/yfblog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.1em; color: #999">正则表达式</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/yfblog/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/yfblog/archives/2021/05/"><span class="card-archive-list-date">五月 2021</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/yfblog/archives/2021/04/"><span class="card-archive-list-date">四月 2021</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/yfblog/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">6</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">16</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-06-14T16:20:20.732Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By small_杨</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/yfblog/js/utils.js"></script><script src="/yfblog/js/main.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "他日若遂凌云志,敢笑黄巢不丈夫".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = '他日若遂凌云志'
+  }
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/yfblog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/yfblog/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"rect":"opacity:0.5","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

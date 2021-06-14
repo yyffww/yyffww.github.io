@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java并发框架 | small_杨@裂缝中的一丝阳光</title><meta name="keywords" content="learn"><meta name="author" content="small_杨"><meta name="copyright" content="small_杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.简介1.为什么需要并发框架?肯定是因为数据多,数据量大。 2.串行编程与并行编程。 串行编程简单，拥有顺序结构，选择结构，循环结构。  并行编程困难，主要是任务分配和执行过程高度耦合。  –如何控制粒度，切割任务。 –如何分配任务给线程，监督线程执行过程。    3.并行模式 1.主从模式(Master-Slave) 2.Worker模式(Worker-Worker)  也叫P2P  4.Ja">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java并发框架">
+<meta property="og:url" content="https://workspaceyh.gitee.io/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="small_杨@裂缝中的一丝阳光">
+<meta property="og:description" content="1.简介1.为什么需要并发框架?肯定是因为数据多,数据量大。 2.串行编程与并行编程。 串行编程简单，拥有顺序结构，选择结构，循环结构。  并行编程困难，主要是任务分配和执行过程高度耦合。  –如何控制粒度，切割任务。 –如何分配任务给线程，监督线程执行过程。    3.并行模式 1.主从模式(Master-Slave) 2.Worker模式(Worker-Worker)  也叫P2P  4.Ja">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/workspaceyh/img/raw/master/java.png">
+<meta property="article:published_time" content="2021-04-29T13:47:57.000Z">
+<meta property="article:modified_time" content="2021-05-16T03:37:04.375Z">
+<meta property="article:author" content="small_杨">
+<meta property="article:tag" content="learn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/workspaceyh/img/raw/master/java.png"><link rel="shortcut icon" href="/yfblog/img/favicon.png"><link rel="canonical" href="https://workspaceyh.gitee.io/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/yfblog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/yfblog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-05-16 11:37:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/yfblog/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/yfblog/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/yfblog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/yfblog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/yfblog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/yfblog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/yfblog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/workspaceyh/img/raw/master/java.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/yfblog/">small_杨@裂缝中的一丝阳光</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/yfblog/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/yfblog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/yfblog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/yfblog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/yfblog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/yfblog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java并发框架</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-05-16T03:37:04.375Z" title="更新于 2021-05-16 11:37:04">2021-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/yfblog/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><h6 id="1-为什么需要并发框架"><a href="#1-为什么需要并发框架" class="headerlink" title="1.为什么需要并发框架?"></a>1.为什么需要并发框架?</h6><p>肯定是因为数据多,数据量大。</p>
+<h6 id="2-串行编程与并行编程。"><a href="#2-串行编程与并行编程。" class="headerlink" title="2.串行编程与并行编程。"></a>2.串行编程与并行编程。</h6><ul>
+<li><p>串行编程简单，拥有顺序结构，选择结构，循环结构。</p>
+</li>
+<li><p>并行编程困难，主要是任务分配和执行过程高度耦合。</p>
+<blockquote>
+<p>–如何控制粒度，切割任务。</p>
+<p>–如何分配任务给线程，监督线程执行过程。</p>
+</blockquote>
+</li>
+</ul>
+<h6 id="3-并行模式"><a href="#3-并行模式" class="headerlink" title="3.并行模式"></a>3.并行模式</h6><blockquote>
+<p>1.主从模式(Master-Slave)</p>
+<p>2.Worker模式(Worker-Worker)  也叫P2P</p>
+</blockquote>
+<h6 id="4-Java并发编程"><a href="#4-Java并发编程" class="headerlink" title="4.Java并发编程"></a>4.Java并发编程</h6><ul>
+<li>Thread/Runnable/Thread组管理</li>
+<li>Executor</li>
+<li>Fork-Join框架</li>
+</ul>
+<h5 id="2-线程组管理"><a href="#2-线程组管理" class="headerlink" title="2.线程组管理"></a>2.线程组管理</h5><h6 id="线程组ThreadGroup"><a href="#线程组ThreadGroup" class="headerlink" title="线程组ThreadGroup"></a>线程组ThreadGroup</h6><blockquote>
+<p>树形结构</p>
+<p>通过enumerate遍历组内线程</p>
+<p>能够有效管理多个线程，但是管理效率低</p>
+<p>任务分配和执行过程高度耦合</p>
+<p>重复创建线程，关闭线程操作，无法重用线程。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">方法</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">ThreadGroup.activeCount()</td>
+<td align="center">返回线程组中还处于active的线程数</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">ThreadGroup.enumerate()</td>
+<td align="center">将线程组中active的线程拷贝到数组中</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">ThreadGroup.interrupt()</td>
+<td align="center">对线程组中所有的线程发出interrupt信号</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">ThreadGroup.list()</td>
+<td align="center">打印线程组中所有的线程信息</td>
+</tr>
+</tbody></table>
+<h5 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3.Executor"></a>3.Executor</h5><ul>
+<li>分离任务的创建和执行者的创建</li>
+<li>线程的重复利用</li>
+</ul>
+<h6 id="1-理解共享线程池的概念"><a href="#1-理解共享线程池的概念" class="headerlink" title="1.理解共享线程池的概念"></a>1.理解共享线程池的概念</h6><blockquote>
+<p>预设好的多个Thread,可弹性增加</p>
+<p>多次执行很多很少的任务</p>
+<p>任务创建和执行过程解耦</p>
+<p>程序员无需关心线程池执行任务过程</p>
+</blockquote>
+<h6 id="2-主要类"><a href="#2-主要类" class="headerlink" title="2.主要类"></a>2.主要类</h6><blockquote>
+<p>Executors.newCachedThreadPool / newFixedThreadPool 创建线程池</p>
+<p>ExecutorService 线程池服务</p>
+<p>Callable 具体的逻辑对象   与Runnable等价的，可以用来执行一个任务，可以有返回值。</p>
+<p>Future 返回结果</p>
+</blockquote>
+<h6 id="3-测试代码"><a href="#3-测试代码" class="headerlink" title="3.测试代码"></a>3.测试代码</h6><p>用10个线程来求1000的合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> executor.sum;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Callable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SumTask</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> startNumber;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> endNumber;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SumTask</span><span class="params">(<span class="keyword">int</span> startNumber, <span class="keyword">int</span> endNumber)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.startNumber = startNumber;</span><br><span class="line">		<span class="keyword">this</span>.endNumber = endNumber;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = startNumber;i&lt;=endNumber;i++) &#123;</span><br><span class="line">			sum = sum + i;</span><br><span class="line">		&#125;</span><br><span class="line">		Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">1000</span>));</span><br><span class="line">		System.out.printf(<span class="string">&quot;%s: %d\n&quot;</span>,Thread.currentThread().getName(),sum);</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> executor.sum;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutionException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Future;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ThreadPoolExecutor;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Description:  1000求和,分给10个线程做</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: small_yang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2021年4月29日</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SumTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//执行线程池</span></span><br><span class="line">		ThreadPoolExecutor executor = (ThreadPoolExecutor)Executors.newFixedThreadPool(<span class="number">4</span>);</span><br><span class="line">		List&lt;Future&lt;Integer&gt;&gt; resultList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++) &#123;</span><br><span class="line">			SumTask calculator = <span class="keyword">new</span> SumTask(i*<span class="number">100</span>+<span class="number">1</span>,(i+<span class="number">1</span>)*<span class="number">100</span>);</span><br><span class="line">			Future&lt;Integer&gt; result=executor.submit(calculator);</span><br><span class="line">			resultList.add(result);</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			System.out.printf(<span class="string">&quot;Main: 已经完成了多少个任务: %d\n&quot;</span>,executor.getCompletedTaskCount());</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;resultList.size();i++) &#123;</span><br><span class="line">				Future&lt;Integer&gt; result = resultList.get(i);</span><br><span class="line">				System.out.printf(<span class="string">&quot;Main: Task %d: %s\n&quot;</span>,i,result.isDone());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				Thread.sleep(<span class="number">50</span>);</span><br><span class="line">			&#125;<span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">while</span> (executor.getCompletedTaskCount()&lt;resultList.size());	</span><br><span class="line">		<span class="comment">//综合计算结果</span></span><br><span class="line">		<span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;resultList.size();i++) &#123;</span><br><span class="line">			Future&lt;Integer&gt; result = resultList.get(i);</span><br><span class="line">			Integer sum = <span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				sum = result.get();</span><br><span class="line">				total += sum;</span><br><span class="line">			&#125;<span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;<span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;1-1000的总和:&quot;</span>+total);</span><br><span class="line">		executor.shutdown();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="4-Fork-join"><a href="#4-Fork-join" class="headerlink" title="4.Fork-join"></a>4.Fork-join</h5><ul>
+<li>java 7开始提供的另外一种并发框架:分解,治理,合并….(和学过的归并排序一样的逻辑)</li>
+<li>适用于整体任务量不好确定的场合。</li>
+</ul>
+<h6 id="1-关键类"><a href="#1-关键类" class="headerlink" title="1.关键类"></a>1.关键类</h6><blockquote>
+<p>ForkJoinPool  任务池</p>
+<p>RecursiveAction</p>
+<p>RecursiveTask</p>
+</blockquote>
+<h6 id="2-测试代码"><a href="#2-测试代码" class="headerlink" title="2.测试代码"></a>2.测试代码</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> forkjoin.sum;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Callable;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.RecursiveTask;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Description: RecursiveTask 可递归的任务 </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: small_yang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2021年5月6日</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SumTask</span> <span class="keyword">extends</span> <span class="title">RecursiveTask</span>&lt;<span class="title">Long</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> start;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> end;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> threadhold = <span class="number">2</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SumTask</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.start = start;</span><br><span class="line">		<span class="keyword">this</span>.end = end;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> Long <span class="title">compute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Long sum = <span class="number">0L</span>;	</span><br><span class="line">		<span class="comment">//任务足够小直接执行</span></span><br><span class="line">		<span class="keyword">boolean</span> canCompute = (end - start) &lt;= threadhold;</span><br><span class="line">		<span class="keyword">if</span>(canCompute) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt;= end; i++) &#123;</span><br><span class="line">				sum += i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//分解</span></span><br><span class="line">			<span class="keyword">int</span> middle = (start + end) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">			SumTask task1 = <span class="keyword">new</span> SumTask(start, middle);</span><br><span class="line">			SumTask task2 = <span class="keyword">new</span> SumTask(middle+<span class="number">1</span>, end);</span><br><span class="line">			<span class="comment">//提交</span></span><br><span class="line">			invokeAll(task1,task2);</span><br><span class="line">			<span class="comment">//join会阻塞,任务没有完成的话。</span></span><br><span class="line">			Long sum1 = task1.join();</span><br><span class="line">			Long sum2 = task2.join();</span><br><span class="line">			<span class="comment">//合并</span></span><br><span class="line">			sum = sum1 + sum2;			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> forkjoin.sum;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ForkJoinPool;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ForkJoinTask;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Future;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Description:  1000求和,分给10个线程做</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: small_yang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2021年5月6日</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SumTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException </span>&#123;</span><br><span class="line">		<span class="comment">//创建执行线程池</span></span><br><span class="line">		ForkJoinPool pool = <span class="keyword">new</span> ForkJoinPool();</span><br><span class="line">		<span class="comment">//ForkJoinPool pool2 = new ForkJoinPool(4);</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//创建任务</span></span><br><span class="line">		SumTask task = <span class="keyword">new</span> SumTask(<span class="number">1</span>, <span class="number">100000000</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//提交任务</span></span><br><span class="line">		ForkJoinTask&lt;Long&gt; result = pool.submit(task);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//等待结果</span></span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			System.out.printf(<span class="string">&quot;Main Thread Activing Count: %d\n&quot;</span>,pool.getActiveThreadCount());</span><br><span class="line">             <span class="comment">//打印并行度</span></span><br><span class="line">			System.out.printf(<span class="string">&quot;Main Thread Parallelism: %d\n&quot;</span>,pool.getParallelism());</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				Thread.sleep(<span class="number">50</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">catch</span>(InterruptedException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;	</span><br><span class="line">		&#125; <span class="keyword">while</span> (!task.isDone());</span><br><span class="line">		System.out.println(result.get().toString());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">small_杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://workspaceyh.gitee.io/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/">https://workspaceyh.gitee.io/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://workspaceyh.gitee.io/yfblog" target="_blank">small_杨@裂缝中的一丝阳光</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/yfblog/tags/learn/">learn</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/workspaceyh/img/raw/master/java.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/"><img class="prev-cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="onerror=null;src='/yfblog/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java并发数据结构&amp;并发协作</div></div></a></div><div class="next-post pull-right"><a href="/yfblog/2021/04/29/java%E7%9A%84%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/"><img class="next-cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="onerror=null;src='/yfblog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java相关笔记</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/yfblog/2021/04/24/Eclipse-Maven/" title="Eclipse Maven"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/eclipse.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-24</div><div class="title">Eclipse Maven</div></div></a></div><div><a href="/yfblog/2021/05/27/Java-数据库编程/" title="Java 数据库编程"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-27</div><div class="title">Java 数据库编程</div></div></a></div><div><a href="/yfblog/2021/06/11/Java字节码/" title="Java字节码"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-11</div><div class="title">Java字节码</div></div></a></div><div><a href="/yfblog/2021/04/29/Java并发数据结构-线程协作/" title="Java并发数据结构&并发协作"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-29</div><div class="title">Java并发数据结构&并发协作</div></div></a></div><div><a href="/yfblog/2021/05/06/Java网络编程/" title="Java网络编程"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-06</div><div class="title">Java网络编程</div></div></a></div><div><a href="/yfblog/2021/03/29/XML文件处理/" title="XML文件处理"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/xml.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-29</div><div class="title">XML文件处理</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="this.onerror=null;this.src='/yfblog/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">small_杨</div><div class="author-info__description">小杨的个人博客</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/yfblog/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/yfblog/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item is-center"><a href="/yfblog/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://gitee.com/workspaceyh"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">1.简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6"><span class="toc-number">1.1.</span> <span class="toc-text">1.为什么需要并发框架?</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E4%B8%B2%E8%A1%8C%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E3%80%82"><span class="toc-number">1.2.</span> <span class="toc-text">2.串行编程与并行编程。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E5%B9%B6%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">3.并行模式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B"><span class="toc-number">1.4.</span> <span class="toc-text">4.Java并发编程</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E7%BA%BF%E7%A8%8B%E7%BB%84%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">2.线程组管理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%BB%84ThreadGroup"><span class="toc-number">2.1.</span> <span class="toc-text">线程组ThreadGroup</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-Executor"><span class="toc-number">3.</span> <span class="toc-text">3.Executor</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E7%90%86%E8%A7%A3%E5%85%B1%E4%BA%AB%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.</span> <span class="toc-text">1.理解共享线程池的概念</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E4%B8%BB%E8%A6%81%E7%B1%BB"><span class="toc-number">3.2.</span> <span class="toc-text">2.主要类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">3.3.</span> <span class="toc-text">3.测试代码</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-Fork-join"><span class="toc-number">4.</span> <span class="toc-text">4.Fork-join</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E5%85%B3%E9%94%AE%E7%B1%BB"><span class="toc-number">4.1.</span> <span class="toc-text">1.关键类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">4.2.</span> <span class="toc-text">2.测试代码</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java字节码"/></a><div class="content"><a class="title" href="/yfblog/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码">Java字节码</a><time datetime="2021-06-11T07:50:59.000Z" title="发表于 2021-06-11 15:50:59">2021-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java 数据库编程"/></a><div class="content"><a class="title" href="/yfblog/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程">Java 数据库编程</a><time datetime="2021-05-27T03:02:44.000Z" title="发表于 2021-05-27 11:02:44">2021-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java网络编程"/></a><div class="content"><a class="title" href="/yfblog/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程">Java网络编程</a><time datetime="2021-05-06T13:47:57.000Z" title="发表于 2021-05-06 21:47:57">2021-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java并发数据结构&amp;并发协作"/></a><div class="content"><a class="title" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作">Java并发数据结构&amp;并发协作</a><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" title="Java并发框架"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/yfblog/img/404.jpg'" alt="Java并发框架"/></a><div class="content"><a class="title" href="/yfblog/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%A1%86%E6%9E%B6/" title="Java并发框架">Java并发框架</a><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By small_杨</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/yfblog/js/utils.js"></script><script src="/yfblog/js/main.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'u6ESlOAp2phpNTjWfQglLhbG-gzGzoHsz',
+      appKey: '4CPlz9dnvXUTKV69BxoBxMDz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/yfblog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/yfblog/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"rect":"opacity:0.5","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
