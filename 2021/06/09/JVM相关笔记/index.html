@@ -1,0 +1,422 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java类加载器 | small_杨@裂缝中的一丝阳光</title><meta name="keywords" content="learn"><meta name="author" content="small_杨"><meta name="copyright" content="small_杨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、类加载器1.类加载过程 程序是依靠多个Java类共同协作完成的。 JVM依据classpath执行的类库的顺序来查找类。  2.类加载器ClassLoader 负责查找、加载、校验字节码的应用程序  java.lang.ClassLoader  load(String className) 根据名字加载一个类，返回类的实例 defineClass(String name,byte[] b,in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java类加载器">
+<meta property="og:url" content="https://yyffww.github.io/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="small_杨@裂缝中的一丝阳光">
+<meta property="og:description" content="一、类加载器1.类加载过程 程序是依靠多个Java类共同协作完成的。 JVM依据classpath执行的类库的顺序来查找类。  2.类加载器ClassLoader 负责查找、加载、校验字节码的应用程序  java.lang.ClassLoader  load(String className) 根据名字加载一个类，返回类的实例 defineClass(String name,byte[] b,in">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/workspaceyh/img/raw/master/eclipse.png">
+<meta property="article:published_time" content="2021-06-09T13:47:57.000Z">
+<meta property="article:modified_time" content="2021-06-21T14:46:08.172Z">
+<meta property="article:author" content="small_杨">
+<meta property="article:tag" content="learn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/workspaceyh/img/raw/master/eclipse.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yyffww.github.io/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-06-21 22:46:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/workspaceyh/img/raw/master/maven.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">small_杨@裂缝中的一丝阳光</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java类加载器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-09T13:47:57.000Z" title="发表于 2021-06-09 21:47:57">2021-06-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-06-21T14:46:08.172Z" title="更新于 2021-06-21 22:46:08">2021-06-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h4 id="一、类加载器"><a href="#一、类加载器" class="headerlink" title="一、类加载器"></a>一、类加载器</h4><h5 id="1-类加载过程"><a href="#1-类加载过程" class="headerlink" title="1.类加载过程"></a>1.类加载过程</h5><ul>
+<li>程序是依靠多个Java类共同协作完成的。</li>
+<li>JVM依据classpath执行的类库的顺序来查找类。</li>
+</ul>
+<h5 id="2-类加载器ClassLoader"><a href="#2-类加载器ClassLoader" class="headerlink" title="2.类加载器ClassLoader"></a>2.类加载器ClassLoader</h5><ul>
+<li><p>负责查找、加载、校验字节码的应用程序</p>
+</li>
+<li><p>java.lang.ClassLoader</p>
+<blockquote>
+<p>load(String className) 根据名字加载一个类，返回类的实例</p>
+<p>defineClass(String name,byte[] b,int off,int len)将一个字节流定义一个类</p>
+<p>findClass(String name)查找一个类</p>
+<p>findLoadedClass(String name)在已经加载的类中，查找一个类</p>
+<p>成员变量ClassLoader parent</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="3-JVM四级类加载器"><a href="#3-JVM四级类加载器" class="headerlink" title="3.JVM四级类加载器"></a>3.JVM四级类加载器</h5><ul>
+<li><p>启动类加载器(Bootstrap)，系统类rt.jar</p>
+</li>
+<li><p>扩展类加载器(Extension),jre/lib/ext</p>
+</li>
+<li><p>应用类加载器(App) ，classpath</p>
+</li>
+<li><p>用户自定义加载器(Plugin)，程序自定义</p>
+</li>
+<li><p>类加载器双亲委托</p>
+<blockquote>
+<p>首先判断是否已经加载</p>
+<p>若无，找到父加载器加载</p>
+<p>若再无，由当前加载器加载</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="4-自定义加载路径"><a href="#4-自定义加载路径" class="headerlink" title="4.自定义加载路径"></a>4.自定义加载路径</h5><ul>
+<li><p>URLClassLoader</p>
+<blockquote>
+<p>继承于ClassLoader</p>
+<p>程序运行时增加的类加载路径</p>
+<p>可以多个来源中加载类</p>
+<ol>
+<li>目录</li>
+<li>jar包</li>
+<li>网络</li>
+</ol>
+<p>addURL添加路径</p>
+<p>close方法关闭</p>
+</blockquote>
+</li>
+</ul>
+<p>二、JVM内存管理</p>
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">线程私有/共享</th>
+<th align="center">功能</th>
+<th align="center">大小</th>
+<th align="center">异常</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">程序计数器</td>
+<td align="center">私有</td>
+<td align="center">保存当前线程执行方法</td>
+<td align="center">通常固定大小</td>
+<td align="center">不会</td>
+</tr>
+<tr>
+<td align="center">JVM栈</td>
+<td align="center">私有</td>
+<td align="center">方法发栈帧</td>
+<td align="center">-Xss</td>
+<td align="center">StackOverflowError<br>OutOfMemoryError</td>
+</tr>
+<tr>
+<td align="center">本地方法栈</td>
+<td align="center">私有</td>
+<td align="center">存储native方法信息</td>
+<td align="center">通常固定大小</td>
+<td align="center">StackOverflowError<br/>OutOfMemoryError</td>
+</tr>
+<tr>
+<td align="center">堆</td>
+<td align="center">共享</td>
+<td align="center">存储对象和数组</td>
+<td align="center">-Xms初始<br>-Xmx最大堆值</td>
+<td align="center">OutOfMemoryError</td>
+</tr>
+<tr>
+<td align="center">方法区</td>
+<td align="center">共享</td>
+<td align="center">存储结构、常量、静态变量</td>
+<td align="center">-XX参数设置</td>
+<td align="center">OutOfMemoryError</td>
+</tr>
+<tr>
+<td align="center">运行时常量池</td>
+<td align="center">共享</td>
+<td align="center">常量池运行时表示</td>
+<td align="center">从属于方法区</td>
+<td align="center">OutOfMemoryError</td>
+</tr>
+</tbody></table>
+<h5 id="1-堆-Heap"><a href="#1-堆-Heap" class="headerlink" title="1.堆(Heap)"></a>1.堆(Heap)</h5><ul>
+<li>共享，储存所有的对象和数组</li>
+<li>-Xms初始堆值，-Xmx最大堆值</li>
+</ul>
+<h5 id="2-JVM栈-JVM-Stack"><a href="#2-JVM栈-JVM-Stack" class="headerlink" title="2.JVM栈(JVM Stack)"></a>2.JVM栈(JVM Stack)</h5><ul>
+<li>线程私有，存储类中每个方法的内容</li>
+<li>-Xss最大栈值</li>
+</ul>
+<h5 id="3-方法区-Method-Area"><a href="#3-方法区-Method-Area" class="headerlink" title="3.方法区(Method Area)"></a>3.方法区(Method Area)</h5><ul>
+<li>存储类信息、常量池等</li>
+<li>1.7以前，永久区， -XX:PermSize,-XX:MaxPermSize</li>
+<li>1.8及以后，元数据区，-XX:MetaspaceSize,-XX:MaxMetaspaceSize</li>
+</ul>
+<h4 id="二、Java对象引用"><a href="#二、Java对象引用" class="headerlink" title="二、Java对象引用"></a>二、Java对象引用</h4><ul>
+<li><p>强引用</p>
+<blockquote>
+<p>如Object obj = new Object(); Object obj2 = obj;</p>
+<p>只要强引用还存在，对象就不会被回收，哪怕发生OOM异常</p>
+</blockquote>
+</li>
+<li><p>软引用</p>
+<blockquote>
+<p>描述有用但并非必须的对象</p>
+<p>在系统将要发生内存溢出异常之前，会把这些对象列为可回收。</p>
+<p>JDK提供SoftReference类来实现软引用。</p>
+</blockquote>
+</li>
+<li><p>弱引用</p>
+<blockquote>
+<p>描述非必须对象，比软引用强度还弱些</p>
+<p>被弱引用关联的对象只能生存到下一次垃圾收集发生之前</p>
+<p>JDK提供了WeakReference类来实现弱引用</p>
+</blockquote>
+</li>
+<li><p>虚引用</p>
+<blockquote>
+<p>最弱的引用关系，JDK提供PhantomReference来实现虚引用</p>
+<p>为一个对象设置虚引用关联的唯一目的就是能在这个对象被收集器回收时收到一个系统通知，对于对象回收跟踪。</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">引用类型</th>
+<th align="center">强引用</th>
+<th align="center">软引用</th>
+<th align="center">弱引用</th>
+<th align="center">虚引用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">类型</td>
+<td align="center">正常赋值</td>
+<td align="center">SoftReference</td>
+<td align="center">WeakReference</td>
+<td align="center">PhantomReference</td>
+</tr>
+<tr>
+<td align="center">回收时间</td>
+<td align="center">不回收</td>
+<td align="center">内存紧张时就回收</td>
+<td align="center">GC就回收</td>
+<td align="center">随时可能被回收</td>
+</tr>
+</tbody></table>
+<h4 id="四、垃圾收集算法"><a href="#四、垃圾收集算法" class="headerlink" title="四、垃圾收集算法"></a>四、垃圾收集算法</h4><h5 id="1-引用计算法"><a href="#1-引用计算法" class="headerlink" title="1.引用计算法"></a>1.引用计算法</h5><ul>
+<li>每个对象都会有一个引用计数器</li>
+<li>有引用，计数器加一，引用失效，计数器减一</li>
+<li>计数器为0时，将被回收</li>
+</ul>
+<p>优点：简单效率高</p>
+<p>缺点：无法识别对象之间相互循环引用</p>
+<h5 id="2、标记清除法"><a href="#2、标记清除法" class="headerlink" title="2、标记清除法"></a>2、标记清除法</h5><ul>
+<li>标记阶段：标记出所有需要回收的对象</li>
+<li>回收阶段：统一回收所有被标记的对象</li>
+</ul>
+<p>优点：简单</p>
+<p>缺点：内存碎片</p>
+<h5 id="3-复制算法"><a href="#3-复制算法" class="headerlink" title="3.复制算法"></a>3.复制算法</h5><ul>
+<li>将可用内存按容量划分大小相等的两块，每次只使用其中一块。</li>
+<li>当这块内存用完了，就将还存活着的对象复制到另外一块上面去</li>
+<li>然后再把使用过的内存空间一次清理掉</li>
+</ul>
+<p>优点：简单，高效</p>
+<p>缺点：可用内存减少，对象存活率高时复制操作较多</p>
+<h5 id="4、标记整理"><a href="#4、标记整理" class="headerlink" title="4、标记整理"></a>4、标记整理</h5><ul>
+<li>标记阶段：与标记清除算法一样</li>
+<li>整理阶段：让所有存活着的对象都向一端移动，然后直接清理掉端边界以外的内存</li>
+</ul>
+<p>优点：避免碎片产生，无需要两块相同的内存</p>
+<p>缺点：计算代价大，标记清除+碎片整理，更新引用地址</p>
+<h5 id="5、分代收集"><a href="#5、分代收集" class="headerlink" title="5、分代收集"></a>5、分代收集</h5><ul>
+<li><p>Java对象生命周期不同，有长有短</p>
+</li>
+<li><p>根据对象存活周期，将内存划分新生代和老年代</p>
+</li>
+<li><p>新生代</p>
+<blockquote>
+<p>主要存放短暂生命周期对象</p>
+<p>新创建的对象都先放入新生代，大部分新建对象在第一次gc时被回收</p>
+</blockquote>
+</li>
+<li><p>老年代</p>
+<blockquote>
+<p>一个对象经过几次gc仍然存活，则放入老年代</p>
+<p>这些对象可以存活很长的时间，或者伴随程序一生，需要常驻内存，可以减少回收次数。</p>
+</blockquote>
+</li>
+<li><p>针对各个年代特点采用合适的收集算法</p>
+<p>新生代复制算法</p>
+<img src="/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/image-20210621165247841.png" class="" title="image-20210621165247841"></li>
+</ul>
+<img src="/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/image-20210621165311422.png" class="" title="image-20210621165311422">
+
+<p>老年代采用标记清除或者标记整理</p>
+<ul>
+<li><p>堆内存参数</p>
+<blockquote>
+<p>-Xms初始化堆大小</p>
+<p>-Xmx最大堆大小</p>
+<p>-Xmn新生代大小</p>
+<p>-XX:SurvivorRatio设置eden区/from(to)的比例</p>
+<p>-XX:NewRation设置老年代/新生代比列</p>
+<p>-XX:+PrintGC/-XX:+PrintGCDetails 打印GC的过程信息。</p>
+</blockquote>
+</li>
+</ul>
+<img src="/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/image-20210621175922895.png" class="" title="image-20210621175922895">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">small_杨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yyffww.github.io/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/">https://yyffww.github.io/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yyffww.github.io" target="_blank">small_杨@裂缝中的一丝阳光</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/learn/">learn</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/workspaceyh/img/raw/master/eclipse.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/"><img class="prev-cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java字节码</div></div></a></div><div class="next-post pull-right"><a href="/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/"><img class="next-cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java 数据库编程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/04/24/Eclipse-Maven/" title="Eclipse Maven"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/eclipse.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-24</div><div class="title">Eclipse Maven</div></div></a></div><div><a href="/2021/06/11/Java字节码/" title="Java字节码"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-11</div><div class="title">Java字节码</div></div></a></div><div><a href="/2021/05/27/Java-数据库编程/" title="Java 数据库编程"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-27</div><div class="title">Java 数据库编程</div></div></a></div><div><a href="/2021/04/29/Java并发数据结构-线程协作/" title="Java并发数据结构&并发协作"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-29</div><div class="title">Java并发数据结构&并发协作</div></div></a></div><div><a href="/2021/04/29/Java并发框架/" title="Java并发框架"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-29</div><div class="title">Java并发框架</div></div></a></div><div><a href="/2021/05/06/Java网络编程/" title="Java网络编程"><img class="cover" src="https://gitee.com/workspaceyh/img/raw/master/java.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-06</div><div class="title">Java网络编程</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/workspaceyh/img/raw/master/mylogoqrimg.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">small_杨</div><div class="author-info__description">小杨的个人博客</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://gitee.com/workspaceyh"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">一、类加载器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1.类加载过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8ClassLoader"><span class="toc-number">1.2.</span> <span class="toc-text">2.类加载器ClassLoader</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-JVM%E5%9B%9B%E7%BA%A7%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-number">1.3.</span> <span class="toc-text">3.JVM四级类加载器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E8%B7%AF%E5%BE%84"><span class="toc-number">1.4.</span> <span class="toc-text">4.自定义加载路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%A0%86-Heap"><span class="toc-number">1.5.</span> <span class="toc-text">1.堆(Heap)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-JVM%E6%A0%88-JVM-Stack"><span class="toc-number">1.6.</span> <span class="toc-text">2.JVM栈(JVM Stack)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E6%96%B9%E6%B3%95%E5%8C%BA-Method-Area"><span class="toc-number">1.7.</span> <span class="toc-text">3.方法区(Method Area)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Java%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">二、Java对象引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">四、垃圾收集算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%BC%95%E7%94%A8%E8%AE%A1%E7%AE%97%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">1.引用计算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">2、标记清除法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">3.复制算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%E3%80%81%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86"><span class="toc-number">3.4.</span> <span class="toc-text">4、标记整理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5%E3%80%81%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86"><span class="toc-number">3.5.</span> <span class="toc-text">5、分代收集</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java字节码"/></a><div class="content"><a class="title" href="/2021/06/11/Java%E5%AD%97%E8%8A%82%E7%A0%81/" title="Java字节码">Java字节码</a><time datetime="2021-06-11T07:50:59.000Z" title="发表于 2021-06-11 15:50:59">2021-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/" title="Java类加载器"><img src="https://gitee.com/workspaceyh/img/raw/master/eclipse.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java类加载器"/></a><div class="content"><a class="title" href="/2021/06/09/JVM%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/" title="Java类加载器">Java类加载器</a><time datetime="2021-06-09T13:47:57.000Z" title="发表于 2021-06-09 21:47:57">2021-06-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java 数据库编程"/></a><div class="content"><a class="title" href="/2021/05/27/Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="Java 数据库编程">Java 数据库编程</a><time datetime="2021-05-27T03:02:44.000Z" title="发表于 2021-05-27 11:02:44">2021-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java网络编程"/></a><div class="content"><a class="title" href="/2021/05/06/Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="Java网络编程">Java网络编程</a><time datetime="2021-05-06T13:47:57.000Z" title="发表于 2021-05-06 21:47:57">2021-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作"><img src="https://gitee.com/workspaceyh/img/raw/master/java.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java并发数据结构&amp;并发协作"/></a><div class="content"><a class="title" href="/2021/04/29/Java%E5%B9%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/" title="Java并发数据结构&amp;并发协作">Java并发数据结构&amp;并发协作</a><time datetime="2021-04-29T13:47:57.000Z" title="发表于 2021-04-29 21:47:57">2021-04-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By small_杨</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'u6ESlOAp2phpNTjWfQglLhbG-gzGzoHsz',
+      appKey: '4CPlz9dnvXUTKV69BxoBxMDz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"rect":"opacity:0.5","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
